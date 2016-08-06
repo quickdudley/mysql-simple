@@ -82,6 +82,10 @@ instance (Param a) => Param (Maybe a) where
     render (Just a) = render a
     {-# INLINE render #-}
 
+instance (Param a, Param b) => Param (Either a b) where
+    render (Left a) = render a
+    render (Right b) = render b
+
 instance (Param a) => Param (In [a]) where
     render (In []) = Plain $ fromByteString "(null)"
     render (In xs) = Many $
